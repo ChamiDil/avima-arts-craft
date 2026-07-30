@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official portfolio of Avima Arts & Craft. Explore premium handcrafted mahogany art, 3D cement designs, fabric paintings, and traditional motifs.">
+    <title>Avima Arts & Craft | Handcrafted Art & Design Showcase</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=24">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header" id="site-header">
+        <div class="header-container">
+            <a href="#" class="logo" id="header-logo">
+                <span class="logo-text">Avima Arts & Craft</span>
+            </a>
+            
+            <div class="header-actions-wrapper">
+                <!-- Top Right Language Switcher Button -->
+                <div class="lang-switch-container" id="lang-switch">
+                    <button class="lang-btn active" id="lang-btn-en" data-lang="en" aria-label="Switch to English" title="English">
+                        <span class="lang-flag">🇬🇧</span> EN
+                    </button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn" id="lang-btn-de" data-lang="de" aria-label="Auf Deutsch wechseln" title="Deutsch">
+                        <span class="lang-flag">🇩🇪</span> DE
+                    </button>
+                </div>
+
+                <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+            <nav class="nav-menu" id="nav-menu-links">
+                <a href="#about" class="nav-link" data-i18n="nav_bio">Bio</a>
+                <a href="#mystory" class="nav-link" data-i18n="nav_mystory">My Story</a>
+                <a href="#qualifications" class="nav-link" data-i18n="nav_qualifications">Qualifications</a>
+                <a href="#tools" class="nav-link" data-i18n="nav_tools">Studio Tools</a>
+                <a href="#gallery" class="nav-link" data-i18n="nav_showcase">Collections Showcase</a>
+                <a href="#contact" class="btn-hire nav-link" data-i18n="nav_inquire">Inquire</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Shaded Fullscreen Background Video -->
+        <section class="hero-section" id="hero-section">
+            <!-- Shaded Background Video Container -->
+            <div class="hero-video-bg-container">
+                <video class="hero-video-element" autoplay loop muted playsinline>
+                    <source src="assets/videos/hero_malika_video.mp4" type="video/mp4">
+                    <source src="assets/videos/project/video_project_6.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-shade-overlay"></div>
+            </div>
+
+            <div class="hero-body-container">
+                <div class="hero-left-roles">
+                    <span data-i18n="hero_role_1">Handcraft</span>
+                    <span data-i18n="hero_role_2">Fine Arts</span>
+                    <span data-i18n="hero_role_3">Structural Design</span>
+                </div>
+                
+                <div class="hero-center-spacer"></div>
+
+                <div class="hero-right-cta">
+                    <div class="available-badge">
+                        <span class="green-ping-dot">
+                            <span class="ping-effect"></span>
+                            <span class="solid-dot"></span>
+                        </span>
+                        <span data-i18n="hero_badge">Exam Selection Board Review</span>
+                    </div>
+                    <p class="hero-tagline-main" data-i18n="hero_tagline">Curating visual harmony through traditional patterns, precision geometry, and raw organic textures.</p>
+                    <div class="hero-cta-buttons">
+                        <a href="#gallery" class="btn-primary-glow nav-link" data-i18n="hero_cta">View Portfolio Collections</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artist Biography & Statement -->
+        <section class="about-section" id="about">
+            <div class="shell">
+                <div class="about-grid">
+                    <div class="about-left-col">
+                        <div class="about-left-eyebrow">
+                            <span class="section-tag" data-i18n="about_tag">Candidate Profile</span>
+                            <h2 class="about-h2-statement"><span data-i18n="about_h2_prefix">A Diverse Journey Across </span><span class="about-statement-muted" data-i18n="about_h2_muted">Visual Arts & Craftsmanship...</span></h2>
+                        </div>
+                        <div class="about-roles-container">
+                            <div class="about-role-big" data-i18n="about_role_1">CREATIVE MAKER</div>
+                            <div class="about-role-big" data-i18n="about_role_2">DESIGNER</div>
+                            <div class="about-role-big" data-i18n="about_role_3">ARTIST</div>
+                        </div>
+                    </div>
+                    <div class="about-right-col">
+                        <p class="about-text" data-i18n="about_text">
+                            Driven by a lifelong passion for art and a curiosity to explore new mediums, I have intentionally expanded my creative expressions beyond a single format. From delicate paper line art to eco-friendly wood and coconut crafts, fabric paintings, and large-scale murals, I look at every surface as a canvas. Here is a curated view of my past milestones and ongoing artistic projects, categorized by medium and style.
+                        </p>
+                        
+                        <div class="about-cv-details">
+                            <div class="about-timeline-col">
+                                <h3 data-i18n="about_focus">Focus Areas</h3>
+                                <ul class="about-timeline-list">
+                                    <li class="about-timeline-item">
+                                        <span class="about-timeline-title" data-i18n="focus_1_title">Line Art</span>
+                                        <span class="about-timeline-subtitle" data-i18n="focus_1_desc">Executing intricate Mandala designs, high-contrast black-and-white line art, and traditional Sri Lankan motifs (such as the Hansa and Liyawel) with absolute precision and symmetry on paper and art boards.</span>
+                                    </li>
+                                    <li class="about-timeline-item">
+                                        <span class="about-timeline-title" data-i18n="focus_2_title">Structural 3D & Relief Work</span>
+                                        <span class="about-timeline-subtitle" data-i18n="focus_2_desc">Relief art and decorative motifs on concrete and wood surfaces</span>
+                                    </li>
+                                    <li class="about-timeline-item">
+                                        <span class="about-timeline-title" data-i18n="focus_3_title">Fabric & Handcrafted Objects</span>
+                                        <span class="about-timeline-subtitle" data-i18n="focus_3_desc">Hand-painted fabric patterns, coconut shell crafts, and bespoke items</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MY STORY Section -->
+        <section class="mystory-section" id="mystory">
+            <div class="mystory-bg-grain" aria-hidden="true"></div>
+            
+            <div class="shell">
+                <div class="portfolio-header mystory-header">
+                    <span class="section-tag" data-i18n="mystory_tag">Artist Philosophy & Vision</span>
+                    <h2 class="portfolio-h2" data-i18n="mystory_h2">MY STORY</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <!-- Sub-section: Core Artistic Areas Feature Cards -->
+                <div class="mystory-core-areas-grid">
+                    <div class="core-area-card">
+                        <div class="core-area-icon">🪵</div>
+                        <h3 class="core-area-title" data-i18n="mystory_core_1_title">Woodcraft Engineering</h3>
+                        <p class="core-area-desc" data-i18n="mystory_core_1_desc">Precision mahogany & custom plywood structural treatment, freehand graphite layouts, and multi-tier relief carving.</p>
+                    </div>
+                    <div class="core-area-card">
+                        <div class="core-area-icon">💎</div>
+                        <h3 class="core-area-title" data-i18n="mystory_core_2_title">Jewelry Design Systems</h3>
+                        <p class="core-area-desc" data-i18n="mystory_core_2_desc">Micro-drilling, fine metalsmithing, and miniature hand-painted accessories merging structural geometry with wearable art.</p>
+                    </div>
+                    <div class="core-area-card">
+                        <div class="core-area-icon">🏺</div>
+                        <h3 class="core-area-title" data-i18n="mystory_core_3_title">Structural Ceramics</h3>
+                        <p class="core-area-desc" data-i18n="mystory_core_3_desc">Architectural plaster mixtures, heritage Sri Lankan motifs, and advanced multi-tier ceramic glaze engineering.</p>
+                    </div>
+                </div>
+
+                <!-- Main Narrative Content Layout -->
+                <div class="mystory-content-grid">
+                    <!-- Left Column: Evolution & Intent -->
+                    <div class="mystory-column">
+                        <div class="mystory-block">
+                            <span class="mystory-subhead-tag" data-i18n="mystory_sub1_tag">Artistic Process</span>
+                            <h3 class="mystory-subhead" data-i18n="mystory_sub1_title">My Artistic Evolution</h3>
+                            <p class="mystory-p" data-i18n="mystory_sub1_p1">My creative process begins at the raw physical level. When constructing woodcraft pieces, I hand-select local mahogany blocks or custom plywood panels, treating and preparing them to avoid warping over time. Every pattern is drawn out freehand with fine graphite layout structures before paint, carving or carving tools touch the surface.</p>
+                            <p class="mystory-p" data-i18n="mystory_sub1_p2">For mixed media work, such as textile engineering and ceramic work, I adapt local Sri Lankan heritage patterns using a modern layout methodology. Each piece requires meticulous layering, relying on multi-tier lacquer finishes or precise architectural plaster mixtures to achieve accurate physical relief depth.</p>
+                        </div>
+
+                        <div class="mystory-block">
+                            <span class="mystory-subhead-tag" data-i18n="mystory_sub2_tag">Core Philosophy</span>
+                            <h3 class="mystory-subhead" data-i18n="mystory_sub2_title">Statement of Intent</h3>
+                            <p class="mystory-p" data-i18n="mystory_sub2_p1">Art is more than decorative layout; it is structural communication. I chose this medium because tactile objects tell stories across borders. My work combines structural wood engineering with intimate, fine jewelry detailing to display raw concepts inside fixed physical geometry.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Founder Quote Callout & International Vision -->
+                    <div class="mystory-column">
+                        <!-- Highlighted Quote Section -->
+                        <div class="mystory-quote-card">
+                            <div class="quote-mark">“</div>
+                            <blockquote class="mystory-quote-text" data-i18n="mystory_quote_txt">
+                                My immediate long-term ambition is to bridge South Asian ornamental craft traditions with standard German industrial art and design principles. Germany represents the apex of structural discipline, historic Bauhaus lineage, and material innovation. By immersing myself in the country's rigorous creative landscape, I aim to advance my specialization in architectural woodcarving, advanced jewelry metalsmithing, and structural ceramic glaze engineering.
+                            </blockquote>
+                            <div class="mystory-quote-author">— <strong data-i18n="mystory_quote_author">Avima Arts and Craft Founder</strong></div>
+                        </div>
+
+                        <!-- International Objective Sub-section -->
+                        <div class="mystory-block mystory-int-block">
+                            <span class="mystory-subhead-tag" data-i18n="mystory_int_tag">International Objective</span>
+                            <h3 class="mystory-subhead" data-i18n="mystory_int_title">Strategic Alignment with German Art Principles</h3>
+                            <p class="mystory-p" data-i18n="mystory_int_p">This portfolio is meticulously organized to serve as an entry point for advanced European validation. Focusing deeply on spatial awareness, cross-disciplinary material research, and sustainable craft preservation, this work demonstrates readiness for deep artistic research inside competitive continental ateliers and academies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUALIFICATIONS Section -->
+        <section class="qualifications-section" id="qualifications">
+            <div class="qualifications-bg-glow" aria-hidden="true"></div>
+            
+            <div class="shell">
+                <div class="portfolio-header qualifications-header">
+                    <span class="section-tag" data-i18n="qual_tag">Education & Qualifications</span>
+                    <h2 class="portfolio-h2" data-i18n="qual_h2">QUALIFICATIONS</h2>
+                    <p class="qualifications-subtitle" data-i18n="qual_subtitle">A verified operational trajectory built upon discipline and industrial certification</p>
+                    <div class="section-divider"></div>
+                </div>
+
+                <!-- Vertical Timeline Container -->
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+
+                    <!-- Milestone 1: 2015 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span class="timeline-icon">🎓</span>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">2015</span>
+                            <h3 class="timeline-title" data-i18n="qual_1_title">G.C.E. Ordinary Level (O/L)</h3>
+                            <div class="timeline-institution" data-i18n="qual_1_inst">Academic Pass — "B" Grade Evaluation in Fine Arts Division</div>
+                            <p class="timeline-desc" data-i18n="qual_1_desc">Foundational academic evaluation establishing core visual arts principles, technical drawing, and classical art history.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 2: 2018 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span class="timeline-icon">📜</span>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">2018</span>
+                            <h3 class="timeline-title" data-i18n="qual_2_title">G.C.E. Advanced Level (A/L)</h3>
+                            <div class="timeline-institution" data-i18n="qual_2_inst">Humanities Stream — "B" Grade Evaluation in Fine Arts Matriculation</div>
+                            <p class="timeline-desc" data-i18n="qual_2_desc">Advanced matriculation focusing on cultural heritage, traditional South Asian aesthetics, and creative composition.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 3: 2021 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span class="timeline-icon">🧵</span>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">2021</span>
+                            <h3 class="timeline-title" data-i18n="qual_3_title">Professional Certification in Batik Dyeing & Garment Manufacturing</h3>
+                            <div class="timeline-institution" data-i18n="qual_3_inst">Sri Lanka Institute of Textile & Apparel (SLITA) — Technical Campus</div>
+                            <p class="timeline-desc" data-i18n="qual_3_desc">Industrial specialization in wax-resist batik application, dye chemistry, fiber composition, and apparel production systems.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 4: 2023 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span class="timeline-icon">📐</span>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">2023</span>
+                            <h3 class="timeline-title" data-i18n="qual_4_title">Certificate in Fashion Design Infrastructure</h3>
+                            <div class="timeline-institution" data-i18n="qual_4_inst">Singer Fashion Academy, National Headquarters, Sri Lanka</div>
+                            <p class="timeline-desc" data-i18n="qual_4_desc">Professional diploma covering structural garment drafting, precision pattern engineering, and haute couture finishing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 5: 2023 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <span class="timeline-icon">🏛️</span>
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">2023</span>
+                            <h3 class="timeline-title" data-i18n="qual_5_title">Advanced Training — Saree Jacket Manufacturing Technology</h3>
+                            <div class="timeline-institution" data-i18n="qual_5_inst">Industrial Development Board of Ceylon (IDB) — State Executive Track</div>
+                            <p class="timeline-desc" data-i18n="qual_5_desc">State-certified executive training in ergonomic fitting, high-precision contour tailoring, and heritage textile construction.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools & Materials Section -->
+        <section class="tools-section" id="tools">
+            <div class="shell">
+                <div class="tools-header">
+                    <span class="section-tag" data-i18n="tools_tag">Inside the Studio</span>
+                    <h2 class="portfolio-h2" data-i18n="tools_h2">Materials & Professional Tools</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="tools-container-grid">
+                    <!-- Column 1: Sketching & Brushes -->
+                    <div class="tool-showcase-card">
+                        <div class="tool-image-wrapper">
+                            <img src="assets/mahogany/mahogany_tools.jpg" alt="Sketching tools, compasses, rulers, and fine-detail brushes collection">
+                        </div>
+                        <div class="tool-details-content">
+                            <div class="tool-subcat">
+                                <h3 data-i18n="tool_1_title">🛠️ 01. Sketching & Shaping Tools</h3>
+                                <p><strong data-i18n="tool_1_pencils_label">Pencils & Erasers: </strong><span data-i18n="tool_1_pencils_txt">Used for sketching the initial layout and guidelines directly onto the wooden surface.</span></p>
+                                <p><strong data-i18n="tool_1_geo_label">Geometry Set: </strong><span data-i18n="tool_1_geo_txt">Compasses, rulers, and protractors used to measure precise circular shapes and maintain perfectly equal spacing.</span></p>
+                                <p><strong data-i18n="tool_1_dots_label">Dotting Tools: </strong><span data-i18n="tool_1_dots_txt">Double-ended metal-tipped tools in various sizes, essential for creating uniform dots and details.</span></p>
+                                <p><strong data-i18n="tool_1_palette_label">Color Palettes: </strong><span data-i18n="tool_1_palette_txt">Painting palettes used to mix and blend shades to create custom color combinations.</span></p>
+                            </div>
+                            <div class="tool-subcat">
+                                <h3 data-i18n="tool_2_title">🖌️ 02. Brushes Collection</h3>
+                                <p><strong data-i18n="tool_2_bg_label">Background Brushes (Flat & Large Brushes): </strong><span data-i18n="tool_2_bg_txt">Wide, flat brushes used to apply the white primary base coat evenly across the Mahogany plate.</span></p>
+                                <p><strong data-i18n="tool_2_fine_label">Fine Detail Brushes (00, 000, 0000): </strong><span data-i18n="tool_2_fine_txt">The thinnest, high-precision brush set, used to paint incredibly intricate designs completely freehand.</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Paints & Mediums -->
+                    <div class="tool-showcase-card">
+                        <div class="tool-image-wrapper">
+                            <img src="assets/mahogany/mahogany_paints.jpg" alt="Acrylic paints tubes, white gesso primer, and TOA spray varnish clear sealer">
+                        </div>
+                        <div class="tool-details-content">
+                            <div class="tool-subcat">
+                                <h3 data-i18n="tool_3_title">🎨 03. Paints & Mediums</h3>
+                                <p><strong data-i18n="tool_3_acrylic_label">Acrylic Paints: </strong><span data-i18n="tool_3_acrylic_txt">High-quality acrylic paint tubes and bottles from various premium brands, used to give the artwork its vibrant, lifelike colors (specifically yellows, blues, blacks, and whites).</span></p>
+                                <p><strong data-i18n="tool_3_gesso_label">White Gesso / Primer: </strong><span data-i18n="tool_3_gesso_txt">A thick, white base coat applied to prime the raw wood surface, helping it absorb the paint smoothly and making the colors pop brilliantly.</span></p>
+                                <p><strong data-i18n="tool_3_varnish_label">Spray Varnish / Clear Sealer: </strong><span data-i18n="tool_3_varnish_txt">A protective clear spray applied at the end to seal the finished painting, shielding it from dust, moisture, and scratches while ensuring a long-lasting finish.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Collections Section -->
+        <section class="gallery-section" id="gallery">
+            <div class="shell">
+                <div class="portfolio-header">
+                    <span class="section-tag" data-i18n="gallery_tag">Collections Showcase</span>
+                    <h2 class="portfolio-h2" data-i18n="gallery_h2">All Creative Works</h2>
+                    <div class="section-divider"></div>
+                </div>
+            </div>
+
+            <!-- Sticky Category Filter Navigation Bar -->
+            <div class="filter-controls-sticky-wrapper" id="filter-controls-sticky-wrapper">
+                <div class="shell">
+                    <div class="filter-controls" id="filter-controls">
+                        <button class="filter-btn active" data-filter="plate" data-i18n="cat_tab_plate">Plates</button>
+                        <button class="filter-btn" data-filter="3d-cement" data-i18n="cat_tab_3d_cement">3D Cement Art</button>
+                        <button class="filter-btn" data-filter="3d-wall" data-i18n="cat_tab_3d_wall">3D Wall Decoration</button>
+                        <button class="filter-btn" data-filter="canvas" data-i18n="cat_tab_canvas">Canvas Art</button>
+                        <button class="filter-btn" data-filter="jewellary" data-i18n="cat_tab_jewellary">Jewellery</button>
+                        <button class="filter-btn" data-filter="project" data-i18n="cat_tab_project">Projects</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shell">
+                <!-- Dynamic All Categories Showcase (Featured Hero + Description + Grid per Category) -->
+                <div id="all-categories-container"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="shell">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <span class="section-tag" data-i18n="contact_tag">Get in Touch</span>
+                        <h2 class="portfolio-h2" data-i18n="contact_h2">Interview Evaluation Board</h2>
+                        <div class="section-divider"></div>
+                        <p class="contact-desc" data-i18n="contact_desc">
+                            Prepared with absolute dedication for the exam competition panels. If you have questions regarding the material, curing timelines, or double-firing variables of any piece, please leave an inquiry.
+                        </p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-item-label" data-i18n="contact_label_name">Candidate Name</span>
+                                <span class="contact-item-val">Malika</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-item-label" data-i18n="contact_label_email">General Contact</span>
+                                <span class="contact-item-val">jeewanthmalika@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="contact-form" action="https://formsubmit.co/jeewanthmalika@gmail.com" method="POST">
+                            <div class="form-group">
+                                <label for="form-name" data-i18n="form_label_name">Your Name</label>
+                                <input type="text" id="form-name" name="name" required placeholder="Board Review Panelist" data-i18n-ph="form_placeholder_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email" data-i18n="form_label_email">Your Email</label>
+                                <input type="email" id="form-email" name="email" required placeholder="reviewer@examboard.gov" data-i18n-ph="form_placeholder_email">
+                            </div>
+                            <div class="form-group">
+                                <label for="form-interest" data-i18n="form_label_interest">Artwork of Interest</label>
+                                <select id="form-interest" name="interest" required>
+                                    <option value="" disabled selected data-i18n="form_select_default">Select a category</option>
+                                    <option value="plate" data-i18n="form_opt_plate">Mahogany & Ceramic Plates</option>
+                                    <option value="3d-cement" data-i18n="form_opt_3d_cement">3D Cement Decoration</option>
+                                    <option value="batik" data-i18n="form_opt_batik">Batik Handcrafts</option>
+                                    <option value="canvas" data-i18n="form_opt_canvas">Canvas Painting</option>
+                                    <option value="jewellary" data-i18n="form_opt_jewellary">Pendant & Jewelry Art</option>
+                                    <option value="line-art" data-i18n="form_opt_line_art">Mandala & Line Art</option>
+                                    <option value="handmade" data-i18n="form_opt_handmade">Coconut Shell Crafts</option>
+                                    <option value="project" data-i18n="form_opt_project">Wall Murals & Large Scale Projects</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-message" data-i18n="form_label_msg">Review Notes / Inquiries</label>
+                                <textarea id="form-message" name="message" rows="4" required placeholder="Type your questions or panel evaluation notes here..." data-i18n-ph="form_placeholder_msg"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit" id="btn-submit-form">
+                                <span data-i18n="form_submit">Send Message</span>
+                                <span class="btn-spinner" id="form-spinner"></span>
+                            </button>
+                            <div class="form-feedback" id="form-feedback"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="shell footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">Avima Arts & Craft</a>
+                <p class="footer-tagline" data-i18n="footer_tagline">Structural line geometry, traditional temple motifs, and hand-painted wood designs.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#about" data-i18n="nav_bio">Bio</a>
+                <a href="#tools" data-i18n="nav_tools">Tools</a>
+                <a href="#gallery" data-i18n="nav_showcase">Collections</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p data-i18n="footer_copy">&copy; 2026 Avima Arts & Craft. Built for Exam Competition Selection Board. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="modal" id="artwork-modal" aria-hidden="true" role="dialog">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close-btn" aria-label="Close Modal">&times;</button>
+            <div class="modal-content">
+                <div class="modal-image-pane">
+                    <img id="modal-img" src="" alt="Detailed artwork view">
+                </div>
+                <div class="modal-caption-pane">
+                    <span class="modal-subtag" id="modal-subtag"></span>
+                    <h2 class="modal-title" id="modal-title">Artwork Title</h2>
+                    <p class="modal-desc" id="modal-desc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js?v=24"></script>
+</body>
+</html>
