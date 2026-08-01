@@ -1525,6 +1525,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupScrollSpy() {
         const sections = document.querySelectorAll('.category-block-section');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const filterContainer = document.getElementById('filter-controls');
         if (!sections.length || !filterBtns.length) return;
 
         let isManualClick = false;
@@ -1542,27 +1543,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            if (!currentActiveId && sections.length > 0) {
-                const firstRect = sections[0].getBoundingClientRect();
-                if (firstRect.top > viewportThreshold) {
-                    currentActiveId = sections[0].id.replace('category-', '');
-                } else {
-                    const lastRect = sections[sections.length - 1].getBoundingClientRect();
-                    if (lastRect.bottom <= window.innerHeight + 100) {
-                        currentActiveId = sections[sections.length - 1].id.replace('category-', '');
-                    }
+            // If user is above the gallery section (Bio, My Story, Qualifications, Studio Tools, Hero), clear category lock!
+            const galleryElem = document.getElementById('gallery');
+            if (galleryElem) {
+                const galRect = galleryElem.getBoundingClientRect();
+                if (galRect.top > viewportThreshold) {
+                    currentActiveId = '';
                 }
             }
 
-            if (currentActiveId) {
-                filterBtns.forEach(btn => {
-                    const isActive = btn.getAttribute('data-filter') === currentActiveId;
-                    btn.classList.toggle('active', isActive);
-                    if (isActive && btn.offsetParent !== null) {
-                        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                    }
-                });
-            }
+            filterBtns.forEach(btn => {
+                const isActive = Boolean(currentActiveId && btn.getAttribute('data-filter') === currentActiveId);
+                btn.classList.toggle('active', isActive);
+
+                if (isActive && filterContainer) {
+                    const btnLeft = btn.offsetLeft;
+                    const btnWidth = btn.offsetWidth;
+                    const containerWidth = filterContainer.offsetWidth;
+                    filterContainer.scrollTo({
+                        left: btnLeft - containerWidth / 2 + btnWidth / 2,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         };
 
         window.addEventListener('scroll', updateActiveCategoryOnScroll, { passive: true });
@@ -1576,7 +1579,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 isManualClick = true;
                 filterBtns.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+                if (filterContainer) {
+                    const btnLeft = button.offsetLeft;
+                    const btnWidth = button.offsetWidth;
+                    const containerWidth = filterContainer.offsetWidth;
+                    filterContainer.scrollTo({
+                        left: btnLeft - containerWidth / 2 + btnWidth / 2,
+                        behavior: 'smooth'
+                    });
+                }
 
                 if (targetSection) {
                     const headerOffset = 130;
