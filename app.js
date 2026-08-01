@@ -1364,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (featuredItem.video) {
                 featuredMediaHtml = `
                     <div class="featured-hero-media" style="border-radius: 12px; overflow: hidden; background: #000;">
-                        <video src="${featuredItem.video}" style="width: 100%; height: 100%; object-fit: cover;" controls playsinline preload="metadata"></video>
+                        <video src="${featuredItem.video}" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline controls preload="metadata"></video>
                     </div>
                 `;
             } else {
@@ -1620,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalImagePane) {
             if (item.video) {
                 modalImagePane.innerHTML = `
-                    <video src="${item.video}" controls autoplay style="width: 100%; max-height: 70vh; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); background: #000; display: block;"></video>
+                    <video src="${item.video}" controls autoplay muted playsinline style="width: 100%; max-height: 70vh; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); background: #000; display: block;"></video>
                 `;
             } else {
                 const displayImg = (item.images && item.images.length > 0) ? item.images[0] : item.image;
