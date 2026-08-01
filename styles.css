@@ -341,8 +341,10 @@ p {
     position: relative;
 }
 
-.nav-link:hover {
-    color: var(--foreground);
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent) !important;
+    font-weight: 700;
 }
 
 .nav-link::after {
@@ -358,8 +360,9 @@ p {
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.nav-link:hover::after {
-    transform: scaleX(1);
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1) !important;
     transform-origin: left;
 }
 

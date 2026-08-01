@@ -1615,6 +1615,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Main Site Header ScrollSpy & Navigation Controller ---
+    function setupMainHeaderScrollSpy() {
+        const mainSections = [
+            { id: 'about' },
+            { id: 'mystory' },
+            { id: 'qualifications' },
+            { id: 'tools' },
+            { id: 'gallery' },
+            { id: 'contact' }
+        ];
+
+        const headerNavLinks = document.querySelectorAll('.nav-menu .nav-link');
+
+        const updateMainHeaderNavOnScroll = () => {
+            let activeId = '';
+            const headerOffsetThreshold = 180;
+
+            mainSections.forEach(secInfo => {
+                const elem = document.getElementById(secInfo.id);
+                if (elem) {
+                    const rect = elem.getBoundingClientRect();
+                    if (rect.top <= headerOffsetThreshold && rect.bottom >= 100) {
+                        activeId = secInfo.id;
+                    }
+                }
+            });
+
+            headerNavLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (activeId && href === `#${activeId}`) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateMainHeaderNavOnScroll, { passive: true });
+        updateMainHeaderNavOnScroll();
+    }
+
+    setupMainHeaderScrollSpy();
+
     // --- Smooth Scroll Navigation for Section Links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
@@ -1630,6 +1673,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     navLinksContainer.classList.remove('active');
                 }
 
+                if (history.pushState) {
+                    history.pushState(null, null, targetId);
+                } else {
+                    window.location.hash = targetId;
+                }
+
                 const headerOffset = 75;
                 const elementPosition = targetSection.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -1641,6 +1690,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Handle initial hash on page load
+    if (window.location.hash) {
+        const initialTarget = document.querySelector(window.location.hash);
+        if (initialTarget) {
+            setTimeout(() => {
+                const headerOffset = 75;
+                const elementPosition = initialTarget.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
+    }
 
     // --- Header Scroll Effect ---
     window.addEventListener('scroll', () => {
