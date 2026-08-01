@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Traditional Sri Lankan Temple Procession (Esala Perahera) Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_perahera_step2_easel.webp'
+            image: 'assets/canvas/canvas_perahera_finished_masterpiece.webp'
         },
         {
             id: 'canvas-tiger-mandala',

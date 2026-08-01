@@ -1,9 +1,9 @@
-const CACHE_NAME = 'avima-arts-v50';
+const CACHE_NAME = 'avima-arts-v65';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
-    '/styles.css?v=50',
-    '/app.js?v=50',
+    '/styles.css?v=65',
+    '/app.js?v=65',
     'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Onest:wght@300;400;500;600;700&display=swap'
 ];
 
