@@ -2097,36 +2097,41 @@ p {
 }
 
 .mystory-block {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--radius-card);
     padding: 2.4rem;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .mystory-subhead-tag {
     display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #f59e0b;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fbbf24;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 0.6rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .mystory-subhead {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     color: #ffffff;
-    font-weight: 600;
-    margin-bottom: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
     font-family: var(--font-body);
+    letter-spacing: 0.02em;
 }
 
 .mystory-p {
-    font-size: 1rem;
-    color: #cbd5e1;
-    line-height: 1.78;
-    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    color: #f1f5f9;
+    font-weight: 500;
+    line-height: 1.82;
+    margin-bottom: 1.25rem;
 }
 
 .mystory-p:last-child {
@@ -2134,19 +2139,19 @@ p {
 }
 
 .mystory-quote-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(79, 107, 255, 0.08) 100%);
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1.5px solid rgba(245, 158, 11, 0.6);
     border-radius: var(--radius-card);
     padding: 2.6rem;
     position: relative;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
 }
 
 .quote-mark {
-    font-size: 4.5rem;
+    font-size: 4.8rem;
     line-height: 1;
-    color: #f59e0b;
-    opacity: 0.35;
+    color: #fbbf24;
+    opacity: 0.45;
     font-family: serif;
     position: absolute;
     top: 15px;
@@ -2154,21 +2159,23 @@ p {
 }
 
 .mystory-quote-text {
-    font-size: 1.05rem;
-    color: #f8fafc;
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 500;
     line-height: 1.85;
     font-style: italic;
     margin-bottom: 1.5rem;
     position: relative;
     z-index: 2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .mystory-quote-author {
-    font-size: 0.95rem;
-    color: #f59e0b;
-    font-weight: 600;
+    font-size: 1rem;
+    color: #fbbf24;
+    font-weight: 700;
     text-align: right;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
 }
 
 @media (max-width: 992px) {
