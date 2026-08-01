@@ -1531,20 +1531,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updateActiveCategoryOnScroll = () => {
             if (isManualClick) return;
-            const scrollPos = window.scrollY + 160;
 
             let currentActiveId = '';
+            const viewportThreshold = 220;
+
             sections.forEach(sec => {
-                const top = sec.offsetTop;
-                const height = sec.offsetHeight;
-                if (scrollPos >= top && scrollPos < top + height) {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top <= viewportThreshold && rect.bottom >= 120) {
                     currentActiveId = sec.id.replace('category-', '');
                 }
             });
 
             if (!currentActiveId && sections.length > 0) {
-                if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 200) {
-                    currentActiveId = sections[sections.length - 1].id.replace('category-', '');
+                const firstRect = sections[0].getBoundingClientRect();
+                if (firstRect.top > viewportThreshold) {
+                    currentActiveId = sections[0].id.replace('category-', '');
+                } else {
+                    const lastRect = sections[sections.length - 1].getBoundingClientRect();
+                    if (lastRect.bottom <= window.innerHeight + 100) {
+                        currentActiveId = sections[sections.length - 1].id.replace('category-', '');
+                    }
                 }
             }
 
@@ -1573,7 +1579,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
                 if (targetSection) {
-                    const headerOffset = 120;
+                    const headerOffset = 130;
                     const elementPosition = targetSection.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                     window.scrollTo({
