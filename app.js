@@ -5,6 +5,69 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Performance, Network-Aware & WebP Optimization Helpers ---
+    const isSlowConnection = () => {
+        if ('connection' in navigator) {
+            const conn = navigator.connection;
+            if (conn.saveData || conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g' || conn.effectiveType === '3g') {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    const getOptimizedMediaUrl = (url) => {
+        if (!url) return url;
+        if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')) {
+            return url.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+        }
+        return url;
+    };
+
+    // Global Image Fade-In Handler (CLS & Smooth Skeleton Shimmer Removal)
+    const initProgressiveImageLoading = () => {
+        const handleImg = (img) => {
+            if (img.complete && img.naturalWidth > 0) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load', () => img.classList.add('loaded'));
+                img.addEventListener('error', () => {
+                    // Fallback to original JPG if WebP fails
+                    if (img.src && img.src.endsWith('.webp')) {
+                        img.src = img.src.replace(/\.webp$/i, '.jpg');
+                    }
+                });
+            }
+        };
+
+        document.querySelectorAll('img').forEach(handleImg);
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) {
+                        if (node.tagName === 'IMG') handleImg(node);
+                        node.querySelectorAll && node.querySelectorAll('img').forEach(handleImg);
+                    }
+                });
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    };
+
+    initProgressiveImageLoading();
+
+    // Register High-Performance Service Worker for Aggressive Caching & Offline Support
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then(reg => {
+                console.log('Service Worker Registered:', reg.scope);
+            }).catch(err => {
+                console.warn('Service Worker registration skipped:', err);
+            });
+        });
+    }
+
     // --- Dynamic Artwork Database ---
     const artworkItems = [
         // --- 01. PLATE CATEGORY ---
@@ -13,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Mahogany Plate Wall Decoration – Handcrafted Process',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/mahogany/mahogany_finished.jpg',
+            image: 'assets/mahogany/mahogany_finished.webp',
             description: 'Mahogany Plate Wall Decoration – Step-by-Step Creation Guide:\n\nStep 01 (Surface Prep): Selecting a mahogany plate (12"/24") & thoroughly priming surface with white base coat.\nStep 02 (Layout Sketch): Softly sketching concentric guidelines, mandala patterns & Sri Lankan motifs with pencil.\nStep 03 (Fine Painting): Hand-painting with fine detail brushes (00/000/0000) & vibrant acrylic colors from center outward.\nStep 04 (Sealing & Varnish): Applying clear protective spray varnish to shield from dust & preserve wood grain brilliance.'
         },
         {
@@ -21,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Mahogany Plate Prep - Step 01: Raw Wood Plates',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/mahogany/mahogany_step1.jpg',
+            image: 'assets/mahogany/mahogany_step1.webp',
             description: 'Selecting premium mahogany wood plates (12"/24") and inspecting wood grain surface.'
         },
         {
@@ -29,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Mahogany Plate Prep - Step 02: Circle Guideline Pencil Outline',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/mahogany/mahogany_step2.jpg',
+            image: 'assets/mahogany/mahogany_step2.webp',
             description: 'Measuring and softly sketching concentric circle guidelines with pencil.'
         },
         {
@@ -37,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Mahogany Plate Prep - Step 03: Concentric Mandala Pencil Layout',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/mahogany/mahogany_step3.jpg',
+            image: 'assets/mahogany/mahogany_step3.webp',
             description: 'Sketching intricate Sri Lankan floral and geometric mandala motifs with precision pencil work.'
         },
         {
@@ -45,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Traditional Temple Art Sri Lanka',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/temple_art.jpg',
+            image: 'assets/plates/temple_art.webp',
             description: 'Intricate traditional Sri Lankan temple motif hand-painted on wood plate.'
         },
         {
@@ -53,119 +116,119 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Lotus Mandala Art',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/lotus_mandala_yellow.jpg'
+            image: 'assets/plates/lotus_mandala_yellow.webp'
         },
         {
             id: 'swans-plate',
             title: 'Three Swans Mandala',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/swans_plate.jpg'
+            image: 'assets/plates/swans_plate.webp'
         },
         {
             id: 'liyavala-art',
             title: 'Liyavala Sri Lankan Art',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/liyavala_art.jpg'
+            image: 'assets/plates/liyavala_art.webp'
         },
         {
             id: 'uncommon-mandala',
             title: 'Uncommon Mandala Art',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/uncommon_mandala.jpg'
+            image: 'assets/plates/uncommon_mandala.webp'
         },
         {
             id: 'traditional-art-mandala',
             title: 'Traditional Art Mandala',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/traditional_art_mandala.jpg'
+            image: 'assets/plates/traditional_art_mandala.webp'
         },
         {
             id: 'traditional-dancer',
             title: 'Traditional Dancer in Sri Lanka',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/traditional_dancer.jpg'
+            image: 'assets/plates/traditional_dancer.webp'
         },
         {
             id: 'plate-2',
             title: 'Majestic Sunflower Plate',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate2.jpg'
+            image: 'assets/plates/plate2.webp'
         },
         {
             id: 'plate-4',
             title: 'Crimson Lotus Mandala',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate4.jpg'
+            image: 'assets/plates/plate4.webp'
         },
         {
             id: 'plate-1',
             title: 'Traditional Yak Mask Plate',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate1.jpg'
+            image: 'assets/plates/plate1.webp'
         },
         {
             id: 'plate-3',
             title: 'Fiery Sun Mandala',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate3.jpg'
+            image: 'assets/plates/plate3.webp'
         },
         {
             id: 'plate-5',
             title: 'Floral Mandalas Collection',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate5.jpg'
+            image: 'assets/plates/plate5.webp'
         },
         {
             id: 'plate-6',
             title: 'Traditional Sri Lankan Motif',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate6.jpg'
+            image: 'assets/plates/plate6.webp'
         },
         {
             id: 'plate-7',
             title: 'Sunburst Ceramic Plate',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate7.jpg'
+            image: 'assets/plates/plate7.webp'
         },
         {
             id: 'plate-8',
             title: 'Royal Mandala Plate',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate8.jpg'
+            image: 'assets/plates/plate8.webp'
         },
         {
             id: 'plate-9',
             title: 'Autumn Lotus Plate',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate9.jpg'
+            image: 'assets/plates/plate9.webp'
         },
         {
             id: 'plate-10',
             title: 'Turquoise Bloom Mandala',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/plate10.jpg'
+            image: 'assets/plates/plate10.webp'
         },
         {
             id: 'dubai-culture',
             title: 'Dubai Culture',
             category: 'Plate',
             filter: 'plate',
-            image: 'assets/plates/dubai_culture.jpg'
+            image: 'assets/plates/dubai_culture.webp'
         },
         {
             id: 'video-mahogany-1',
@@ -173,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Plate – Video',
             filter: 'plate',
             video: 'assets/videos/mahogany/plate_1.mp4',
-            image: 'assets/mahogany/mahogany_finished.jpg',
+            image: 'assets/mahogany/mahogany_finished.webp',
             description: 'Hand-carving and initial pattern sketching on solid mahogany wood plate.'
         },
         {
@@ -182,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Plate – Video',
             filter: 'plate',
             video: 'assets/videos/mahogany/plate_2.mp4',
-            image: 'assets/mahogany/mahogany_paints.jpg',
+            image: 'assets/mahogany/mahogany_paints.webp',
             description: 'Precision fine-brush mandala painting on mahogany surface.'
         },
 
@@ -193,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
             category: '3D Cement Art',
             filter: '3d-cement',
             images: [
-                'assets/cement/3d_cement_birds_flowers.jpg',
-                'assets/cement/cement_progress_step1_sculpt.jpg',
-                'assets/cement/cement_progress_step2_color.jpg',
-                'assets/cement/cement_progress_step3_shading.jpg',
-                'assets/cement/cement_progress_step4_final.jpg'
+                'assets/cement/3d_cement_birds_flowers.webp',
+                'assets/cement/cement_progress_step1_sculpt.webp',
+                'assets/cement/cement_progress_step2_color.webp',
+                'assets/cement/cement_progress_step3_shading.webp',
+                'assets/cement/cement_progress_step4_final.webp'
             ],
-            image: 'assets/cement/3d_cement_birds_flowers.jpg',
+            image: 'assets/cement/3d_cement_birds_flowers.webp',
             description: '3D Cement & Wall Putty Texture Art – 4-Stage Relief Process:\n\nStage 01 (Raw Sculpting): Blending cement, wall putty & PVA glue to sculpt 3D bird and floral shapes in high relief.\nStage 02 (Initial Glazing): Applying vibrant base acrylic washes over cured 3D cement shapes.\nStage 03 (Shading & Tinting): Deepening background shadow tones to accentuate high-relief depth.\nStage 04 (Varnished Finish): Sealing with gloss varnish for a durable, lustrous relief finish.'
         },
         {
@@ -208,12 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
             category: '3D Cement Art',
             filter: '3d-cement',
             images: [
-                'assets/cement/3d_rose_relief_final.jpg',
-                'assets/cement/3d_rose_relief_sculpt.jpg',
-                'assets/cement/3d_rose_relief_base_color.jpg',
-                'assets/cement/3d_rose_relief_pink.jpg'
+                'assets/cement/3d_rose_relief_final.webp',
+                'assets/cement/3d_rose_relief_sculpt.webp',
+                'assets/cement/3d_rose_relief_base_color.webp',
+                'assets/cement/3d_rose_relief_pink.webp'
             ],
-            image: 'assets/cement/3d_rose_relief_final.jpg'
+            image: 'assets/cement/3d_rose_relief_final.webp'
         },
         {
             id: '3d-cement-tools',
@@ -221,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: '3D Cement Art',
             filter: '3d-cement',
             description: 'Specialized palette knives and sculpting tools used to carve 3D relief details into wet cement paste.',
-            image: 'assets/cement/3d_cement_tools.jpg'
+            image: 'assets/cement/3d_cement_tools.webp'
         },
         {
             id: 'video-cement-1',
@@ -229,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: '3D Cement Art – Video',
             filter: '3d-cement',
             video: 'assets/videos/cement/cement_1.mp4',
-            image: 'assets/cement/3d_cement_birds_flowers.jpg',
+            image: 'assets/cement/3d_cement_birds_flowers.webp',
             description: 'Blending cement & wall putty mixture and sculpting relief shapes onto board.'
         },
         {
@@ -238,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: '3D Cement Art – Video',
             filter: '3d-cement',
             video: 'assets/videos/cement/cement_2.mp4',
-            image: 'assets/cement/3d_rose_relief_final.jpg',
+            image: 'assets/cement/3d_rose_relief_final.webp',
             description: 'Using fine palette knives to sculpt delicate petal outlines.'
         },
 
@@ -248,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: '3D Wall Decoration Relief Art Panels Showcase',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_collection_display.jpg',
+            image: 'assets/3d_wall/3d_wall_collection_display.webp',
             description: '🖼️ 3D Wall Decoration Relief Panels Collection:\n\nHigh-relief floral wall panels crafted with specialized sculpting paste and gold frame borders, featuring Lotus flowers, Orchids, Sunflowers, Calla Lilies, Yellow Tulips, Daisies, and Cherry Blossoms.'
         },
         {
@@ -256,70 +319,70 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'White & Gold Lotus 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_white_gold_lotus.jpg'
+            image: 'assets/3d_wall/3d_wall_white_gold_lotus.webp'
         },
         {
             id: '3d-wall-cherry-blossom-vertical',
             title: 'Cherry Blossom Branch 3D Relief (Vertical)',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_cherry_blossom_vertical.jpg'
+            image: 'assets/3d_wall/3d_wall_cherry_blossom_vertical.webp'
         },
         {
             id: '3d-wall-golden-sunflowers',
             title: 'Golden Sunflowers 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_golden_sunflowers.jpg'
+            image: 'assets/3d_wall/3d_wall_golden_sunflowers.webp'
         },
         {
             id: '3d-wall-cherry-blossom-horizontal',
             title: 'Cherry Blossom Tree Branch 3D Relief (Horizontal)',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_cherry_blossom_horizontal.jpg'
+            image: 'assets/3d_wall/3d_wall_cherry_blossom_horizontal.webp'
         },
         {
             id: '3d-wall-purple-orchids',
             title: 'Purple Orchids 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_purple_orchids.jpg'
+            image: 'assets/3d_wall/3d_wall_purple_orchids.webp'
         },
         {
             id: '3d-wall-calla-lilies-panel',
             title: 'White Calla Lilies 3D Relief Panel',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_calla_lilies_panel.jpg'
+            image: 'assets/3d_wall/3d_wall_calla_lilies_panel.webp'
         },
         {
             id: '3d-wall-yellow-tulips',
             title: 'Yellow Tulips Bouquet 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_yellow_tulips.jpg'
+            image: 'assets/3d_wall/3d_wall_yellow_tulips.webp'
         },
         {
             id: '3d-wall-white-daisies',
             title: 'White Daisies 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_white_daisies.jpg'
+            image: 'assets/3d_wall/3d_wall_white_daisies.webp'
         },
         {
             id: '3d-wall-calla-lilies-bouquet',
             title: 'Calla Lilies Bouquet 3D Relief',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_calla_lilies_bouquet.jpg'
+            image: 'assets/3d_wall/3d_wall_calla_lilies_bouquet.webp'
         },
         {
             id: '3d-wall-crimson-roses-panel',
             title: 'Crimson Roses Bouquet 3D Relief Panel',
             category: '3D Wall Decoration',
             filter: '3d-wall',
-            image: 'assets/3d_wall/3d_wall_crimson_roses_panel.jpg'
+            image: 'assets/3d_wall/3d_wall_crimson_roses_panel.webp'
         },
 
         // --- 04. CANVAS ART CATEGORY ---
@@ -328,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: '"The Love of an Elephant Family" – Handcrafted Canvas Masterpiece',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_elephant_family_masterpiece.jpg',
+            image: 'assets/canvas/canvas_elephant_family_masterpiece.webp',
             description: '🎨 Handcrafted Canvas Art – Step-by-Step Journey & Materials Breakdown:\n\n"The beloved collection of tools and colors that breathed life into my canvas art.. To color and bring life to any empty space, and to transform a blank canvas into a vibrant painting, this precious collection of tools and colors has been my ultimate guide."\n\n• Sketching & Measuring: Rulers, measuring tapes, pencils, and erasers for accurate cutting & sketching.\n• Background & Blending: Wide flat brushes for gesso priming and watercolor-style acrylic blending.\n• Fine Brushes (00, 000, 0000): Thinnest brush set for eyes, fine body lines, and detailed borders.\n• Acrylic Paints & Palette: High-quality acrylics (blue, orange, red, yellow) and palette for mixing.\n• Varnish Protective Coat: Clear varnish spray applied at the end to seal and protect from dust & moisture.'
         },
         {
@@ -336,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Elephant Family Twin Canvases Studio & Garden View',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_elephants_twin_garden.jpg'
+            image: 'assets/canvas/canvas_elephants_twin_garden.webp'
         },
         {
             id: 'canvas-buddha-progress-3panel',
@@ -344,89 +407,89 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Canvas Painting',
             filter: 'canvas',
             images: [
-                'assets/canvas/canvas_buddha_new_step1_sketch.jpg',
-                'assets/canvas/canvas_buddha_new_step2_background.jpg',
-                'assets/canvas/canvas_buddha_new_step3_finished.jpg',
-                'assets/canvas/canvas_buddha_new_step4_studio.jpg'
+                'assets/canvas/canvas_buddha_new_step1_sketch.webp',
+                'assets/canvas/canvas_buddha_new_step2_background.webp',
+                'assets/canvas/canvas_buddha_new_step3_finished.webp',
+                'assets/canvas/canvas_buddha_new_step4_studio.webp'
             ],
-            image: 'assets/canvas/canvas_buddha_new_step3_finished.jpg'
+            image: 'assets/canvas/canvas_buddha_new_step3_finished.webp'
         },
         {
             id: 'canvas-jesus-popart',
             title: 'Circular Pop Art Jesus Portrait Canvas',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_jesus_circular_popart.jpg'
+            image: 'assets/canvas/canvas_jesus_circular_popart.webp'
         },
         {
             id: 'canvas-perahera-progress-to-finished-frame',
             title: 'Traditional Sri Lankan Temple Procession (Esala Perahera) Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_perahera_step2_easel.jpg'
+            image: 'assets/canvas/canvas_perahera_step2_easel.webp'
         },
         {
             id: 'canvas-tiger-mandala',
             title: 'Blue & Yellow Tiger Mandala Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_tiger_mandala_art.jpg'
+            image: 'assets/canvas/canvas_tiger_mandala_art.webp'
         },
         {
             id: 'canvas-shiva-monochrome',
             title: 'Lord Shiva Monochrome Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_shiva_monochrome.jpg'
+            image: 'assets/canvas/canvas_shiva_monochrome.webp'
         },
         {
             id: 'canvas-woman-geometric-popart',
             title: 'Geometric Low-Poly Woman Portrait Canvas',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_woman_geometric_popart.jpg'
+            image: 'assets/canvas/canvas_woman_geometric_popart.webp'
         },
         {
             id: 'canvas-elephant-embrace-circular',
             title: 'Mother & Baby Elephant Embrace Circular Canvas',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_elephant_embrace_circular.jpg'
+            image: 'assets/canvas/canvas_elephant_embrace_circular.webp'
         },
         {
             id: 'canvas-red-supra-car',
             title: 'Red Toyota Supra Custom Automotive Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_red_supra_car.jpg'
+            image: 'assets/canvas/canvas_red_supra_car.webp'
         },
         {
             id: 'canvas-trio-circular-grass-display',
             title: 'Trio Handcrafted Circular Canvases Studio Display',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_trio_circular_grass_display.jpg'
+            image: 'assets/canvas/canvas_trio_circular_grass_display.webp'
         },
         {
             id: 'canvas-majestic-elephant-2panel-frame',
             title: 'Majestic Colorful Elephant Canvas Art',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_majestic_elephant_2panel_frame.jpg'
+            image: 'assets/canvas/canvas_majestic_elephant_2panel_frame.webp'
         },
         {
             id: 'canvas-sunflower-woman-circular',
             title: 'Sunflower & Autumn Leaves Woman Face Circular Canvas',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_sunflower_woman_circular.jpg'
+            image: 'assets/canvas/canvas_sunflower_woman_circular.webp'
         },
         {
             id: 'canvas-trio-garden-studio-display',
             title: 'Garden Studio Masterpieces Display',
             category: 'Canvas Painting',
             filter: 'canvas',
-            image: 'assets/canvas/canvas_trio_garden_studio_display.jpg'
+            image: 'assets/canvas/canvas_trio_garden_studio_display.webp'
         },
         {
             id: 'video-canvas-1',
@@ -434,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Canvas Painting – Video',
             filter: 'canvas',
             video: 'assets/videos/canvas/canvas_video.mp4',
-            image: 'assets/canvas/canvas_elephant_family_masterpiece.jpg',
+            image: 'assets/canvas/canvas_elephant_family_masterpiece.webp',
             description: 'Blending watercolor acrylic tones and sketching detailed outlines on custom canvas.'
         },
         {
@@ -443,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Canvas Painting – Video',
             filter: 'canvas',
             video: 'assets/videos/canvas/canvas_video_2.mp4',
-            image: 'assets/canvas/canvas_buddha_lotus_finished.jpg',
+            image: 'assets/canvas/canvas_buddha_lotus_finished.webp',
             description: 'Precision brush detailing and applying clear protective sealer over finished canvas art.'
         },
 
@@ -453,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Unique Handcrafted Accessories & Decor Showcase',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_unique_creations_pendant_card.png',
+            image: 'assets/jewellary/jewelry_unique_creations_pendant_card.webp',
             description: '🦋 Handcrafted Wooden Butterfly & Floral Jewelry Showcase:\n\n• Born from a blank sheet of plywood, a butterfly’s majesty brought to life with nature\'s vibrant colors...\n\nHand-painted butterfly & floral necklaces, saree brooches, blouse clips, and custom wooden lifestyle accessories crafted with precision.'
         },
         {
@@ -462,76 +525,76 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Jewellery',
             filter: 'jewellary',
             images: [
-                'assets/jewellary/butterfly_step1_plywood_stack.png',
-                'assets/jewellary/butterfly_step2_sketch_tools.png',
-                'assets/jewellary/butterfly_step3_cutout_shapes.png',
-                'assets/jewellary/butterfly_step4_hand_cutout.png',
-                'assets/jewellary/butterfly_handheld_pink_yellow_featured.png'
+                'assets/jewellary/butterfly_step1_plywood_stack.webp',
+                'assets/jewellary/butterfly_step2_sketch_tools.webp',
+                'assets/jewellary/butterfly_step3_cutout_shapes.webp',
+                'assets/jewellary/butterfly_step4_hand_cutout.webp',
+                'assets/jewellary/butterfly_handheld_pink_yellow_featured.webp'
             ],
-            image: 'assets/jewellary/butterfly_painted_pair_featured_new.png'
+            image: 'assets/jewellary/butterfly_painted_pair_featured_new.webp'
         },
         {
             id: 'jewelry-saree-brooches-blouse-clips',
             title: 'Elegant Saree Brooches & Matching Blouse Clips',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_creation_butterfly_brooches_quad.jpg'
+            image: 'assets/jewellary/jewelry_creation_butterfly_brooches_quad.webp'
         },
         {
             id: 'jewelry-daisy-necklaces',
             title: 'Hand-Painted Daisy & Floral Necklaces',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_creation_daisy_necklaces.jpg'
+            image: 'assets/jewellary/jewelry_creation_daisy_necklaces.webp'
         },
         {
             id: 'jewelry-packaged-butterflies',
             title: 'Bespoke Packaged Wooden Butterfly Accessories',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_creation_packaged_butterflies.jpg'
+            image: 'assets/jewellary/jewelry_creation_packaged_butterflies.webp'
         },
         {
             id: 'jewelry-full-kit-hardware',
             title: 'Plywood Jewelry Full Tools & Hardware Kit',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/plywood_jewelry_tools_hardware_cat_keychain.png'
+            image: 'assets/jewellary/plywood_jewelry_tools_hardware_cat_keychain.webp'
         },
         {
             id: 'jewelry-cat-charms',
             title: 'Handcrafted Wooden Cat Charms Pair',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_cat_charms_pair.jpg'
+            image: 'assets/jewellary/jewelry_cat_charms_pair.webp'
         },
         {
             id: 'jewelry-rotary-tools',
             title: 'Rotary Drill & Micro Tools Collection',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_tools_hardware_kit_full.jpg'
+            image: 'assets/jewellary/jewelry_tools_hardware_kit_full.webp'
         },
         {
             id: 'jewelry-metal-findings',
             title: 'Precision Metal Findings & Jump Rings',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/jewelry_metal_findings_close_up.jpg'
+            image: 'assets/jewellary/jewelry_metal_findings_close_up.webp'
         },
         {
             id: 'jewelry-unpainted-daisy-cutout',
             title: 'Unpainted Wooden Daisy Flower Cutout',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/wood_daisy_unpainted_cutout.png'
+            image: 'assets/jewellary/wood_daisy_unpainted_cutout.webp'
         },
         {
             id: 'jewelry-painted-daisy-flower',
             title: 'Hand-Painted White & Yellow Daisy Flower Cutout',
             category: 'Jewellery',
             filter: 'jewellary',
-            image: 'assets/jewellary/wood_daisy_painted_white_yellow.png'
+            image: 'assets/jewellary/wood_daisy_painted_white_yellow.webp'
         },
         {
             id: 'video-jewellary-1',
@@ -539,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Jewellery – Video',
             filter: 'jewellary',
             video: 'assets/videos/jewellary/flywood_1.mp4',
-            image: 'assets/jewellary/jewelry_cat_charms_pair.jpg',
+            image: 'assets/jewellary/jewelry_cat_charms_pair.webp',
             description: 'Drilling precise micro-holes into wooden butterfly cutouts and attaching jump rings.'
         },
         {
@@ -548,7 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Jewellery – Video',
             filter: 'jewellary',
             video: 'assets/videos/jewellary/flywood_2.mp4',
-            image: 'assets/jewellary/handcrafted_wooden_butterfly_jewelry.jpg',
+            image: 'assets/jewellary/handcrafted_wooden_butterfly_jewelry.webp',
             description: 'Vibrant color blending, fine vein detailing, and keytag/necklace hardware assembly.'
         },
 
@@ -558,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Diverse Journey Across Visual Arts & Craftsmanship Showcase',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/wolf_mandala_line_art.jpg',
+            image: 'assets/line_art/wolf_mandala_line_art.webp',
             description: '🏫 School & Outdoor Project Murals, Coconut Crafts & Line Art Showcase:\n\nDriven by a lifelong passion for art and a curiosity to explore new mediums, I have intentionally expanded my creative expressions beyond a single format. From delicate paper line art to eco-friendly wood and coconut crafts, fabric paintings, and large-scale murals, I look at every surface as a canvas. Here is a curated view of my past milestones and ongoing artistic projects.'
         },
         {
@@ -566,231 +629,231 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Buddha Mandala Line Art',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/buddha_mandala.jpg'
+            image: 'assets/line_art/buddha_mandala.webp'
         },
         {
             id: 'clock-line-art',
             title: 'Vintage Clock Line Art',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/clock_line_art.jpg'
+            image: 'assets/line_art/clock_line_art.webp'
         },
         {
             id: 'ladies-fashion-line-art',
             title: 'Ladies Fashion Line Art',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/ladies_fashion_line_art.jpg'
+            image: 'assets/line_art/ladies_fashion_line_art.webp'
         },
         {
             id: 'owl-mandala',
             title: 'Owl Mandala Line Art',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/owl_mandala.jpg'
+            image: 'assets/line_art/owl_mandala.webp'
         },
         {
             id: 'cultural-dancers',
             title: 'Traditional Sri Lankan Dancers',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/cultural_dancers.jpg'
+            image: 'assets/line_art/cultural_dancers.webp'
         },
         {
             id: 'perahera-procession',
             title: 'Sri Dalada Perahera Procession',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/perahera_procession.jpg'
+            image: 'assets/line_art/perahera_procession.webp'
         },
         {
             id: 'blue-floral-mandala',
             title: 'Blue Floral Mandala',
             category: 'Line Art',
             filter: 'project',
-            image: 'assets/line_art/blue_floral_mandala.jpg'
+            image: 'assets/line_art/blue_floral_mandala.webp'
         },
         {
             id: 'serapendiya-katayam',
             title: 'Traditional Serapendiya Motif',
             category: 'Pendent Art',
             filter: 'project',
-            image: 'assets/pendant_art/serapendiya_katayam.jpg'
+            image: 'assets/pendant_art/serapendiya_katayam.webp'
         },
         {
             id: 'hansa-katayam',
             title: 'Traditional Hansa Motif',
             category: 'Pendent Art',
             filter: 'project',
-            image: 'assets/pendant_art/hansa_katayam.jpg'
+            image: 'assets/pendant_art/hansa_katayam.webp'
         },
         {
             id: 'scroll-katayam',
             title: 'Traditional Scroll Katayam',
             category: 'Pendent Art',
             filter: 'project',
-            image: 'assets/pendant_art/scroll_katayam.jpg'
+            image: 'assets/pendant_art/scroll_katayam.webp'
         },
         {
             id: 'circular-katayam',
             title: 'Circular Traditional Mandala Motif',
             category: 'Pendent Art',
             filter: 'project',
-            image: 'assets/pendant_art/circular_katayam.jpg'
+            image: 'assets/pendant_art/circular_katayam.webp'
         },
         {
             id: 'heart-katayam',
             title: 'Heart Floral Katayam Motif',
             category: 'Pendent Art',
             filter: 'project',
-            image: 'assets/pendant_art/heart_katayam.jpg'
+            image: 'assets/pendant_art/heart_katayam.webp'
         },
         {
             id: 'coconut-lamp-combined',
             title: 'Coconut Handmade Lamp',
             category: 'Coconut Handmade Lamp',
             filter: 'project',
-            image: 'assets/coconut/coconut_lamp_combined.jpg'
+            image: 'assets/coconut/coconut_lamp_combined.webp'
         },
         {
             id: 'coconut-crafts-display',
             title: 'Coconut Handmade Lamp Collection',
             category: 'Coconut Handmade Lamp',
             filter: 'project',
-            image: 'assets/coconut/coconut_crafts_display.jpg'
+            image: 'assets/coconut/coconut_crafts_display.webp'
         },
         {
             id: 'coconut-jewelry-set',
             title: 'Jewelry Set Coconut Handmade',
             category: 'Coconut Handmade Lamp',
             filter: 'project',
-            image: 'assets/coconut/coconut_jewelry_set.jpg'
+            image: 'assets/coconut/coconut_jewelry_set.webp'
         },
         {
             id: 'coconut-clock-pen-holder',
             title: 'Original Coconut Clock with Pen Holder',
             category: 'Coconut Handmade Lamp',
             filter: 'project',
-            image: 'assets/coconut/coconut_clock_pen_holder.jpg'
+            image: 'assets/coconut/coconut_clock_pen_holder.webp'
         },
         {
             id: 'coconut-gift-item-handmade',
             title: 'Coconut Gift Item Handmade',
             category: 'Coconut Handmade Lamp',
             filter: 'project',
-            image: 'assets/coconut/coconut_gift_item_handmade.jpg'
+            image: 'assets/coconut/coconut_gift_item_handmade.webp'
         },
         {
             id: 'pastel-art-portrait',
             title: 'Pastel Art Portrait',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/pastel/pastel_art_portrait.jpg'
+            image: 'assets/pastel/pastel_art_portrait.webp'
         },
         {
             id: 'gray-cloth-hand-paint-work',
             title: 'Gray Cloth Hand Paint Work',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/gray_cloth_hand_paint_work.jpg'
+            image: 'assets/fabric/gray_cloth_hand_paint_work.webp'
         },
         {
             id: 'fabric-art-sunflower',
             title: 'Hand-painted Fabric Art - Sunflower Motif',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/fabric_art_sunflower.jpg'
+            image: 'assets/fabric/fabric_art_sunflower.webp'
         },
         {
             id: 'traditional-mask-fabric-bags',
             title: 'Traditional Sri Lankan Mask Fabric Bags',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/traditional_mask_fabric_bags.jpg'
+            image: 'assets/fabric/traditional_mask_fabric_bags.webp'
         },
         {
             id: 'religious-iconography-bag',
             title: 'Religious Iconography Hand-Painted Fabric Art',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/religious_iconography_bag.jpg'
+            image: 'assets/fabric/religious_iconography_bag.webp'
         },
         {
             id: 'fabric-art-sketches',
             title: 'Fabric Art Sketching Process',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/fabric_art_sketches.jpg'
+            image: 'assets/fabric/fabric_art_sketches.webp'
         },
         {
             id: 'traditional-mask-single-bag',
             title: 'Traditional Mask Hand-Painted Canvas Bag',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/traditional_mask_single_bag.jpg'
+            image: 'assets/fabric/traditional_mask_single_bag.webp'
         },
         {
             id: 'mask-pencil-sketch',
             title: 'Traditional Mask Layout Pencil Sketch',
             category: 'Pastel Art',
             filter: 'project',
-            image: 'assets/fabric/mask_pencil_sketch.jpg'
+            image: 'assets/fabric/mask_pencil_sketch.webp'
         },
         {
             id: 'school-mural-cube',
             title: 'School Wall Mural - 3D Cube Design',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/school_mural_cube.jpg'
+            image: 'assets/school/school_mural_cube.webp'
         },
         {
             id: 'school-mural-tree',
             title: 'Educational Classroom Tree Mural',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/school_mural_tree.jpg'
+            image: 'assets/school/school_mural_tree.webp'
         },
         {
             id: 'school-mural-shapes',
             title: 'Educational Geometric Shapes Wall Mural',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/school_mural_shapes.jpg'
+            image: 'assets/school/school_mural_shapes.webp'
         },
         {
             id: 'giraffe-cutout-art',
             title: 'Educational Giraffe Cutouts for School Spaces',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/giraffe_cutout_art.jpg'
+            image: 'assets/school/giraffe_cutout_art.webp'
         },
         {
             id: 'giraffe-monkey-cutout',
             title: 'School Character Cutouts - Giraffe & Monkey',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/giraffe_monkey_cutout.jpg'
+            image: 'assets/school/giraffe_monkey_cutout.webp'
         },
         {
             id: 'monkey-tree-frame',
             title: 'Interactive Monkey & Tree Cutout Frame',
             category: 'School Work',
             filter: 'project',
-            image: 'assets/school/monkey_tree_frame.jpg'
+            image: 'assets/school/monkey_tree_frame.webp'
         },
         {
             id: 'traditional-yoga-school-mural',
             title: 'Traditional Yoga School & Wellness Mural',
             category: 'Other Works',
             filter: 'project',
-            image: 'assets/school/traditional_yoga_school_mural.jpg'
+            image: 'assets/school/traditional_yoga_school_mural.webp'
         },
         {
             id: 'yoga-wellness-mural',
             title: 'Yoga & Wellness Center Wall Mural',
             category: 'Other Works',
             filter: 'project',
-            image: 'assets/school/yoga_wellness_mural.jpg'
+            image: 'assets/school/yoga_wellness_mural.webp'
         },
         {
             id: 'video-project-1',
@@ -798,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Other Works – Video',
             filter: 'project',
             video: 'assets/videos/project/video_project_6.mp4',
-            image: 'assets/school/school_mural_cube.jpg',
+            image: 'assets/school/school_mural_cube.webp',
             description: 'Executing scale wall murals and outdoor commission projects.'
         },
         {
@@ -807,7 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
             category: 'Other Works – Video',
             filter: 'project',
             video: 'assets/videos/project/video_project_7.mp4',
-            image: 'assets/school/school_mural_tree.jpg',
+            image: 'assets/school/school_mural_tree.webp',
             description: 'Educational art cutouts, classroom visual aids, and interactive school murals.'
         }
     ];
@@ -1182,7 +1245,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderSliderHtml(images, title, uniqueId, isHero = false, customBg = null) {
         if (!images || images.length === 0) return '';
         if (images.length === 1) {
-            return `<img src="${images[0]}" alt="${title}" class="${isHero ? 'featured-hero-img' : 'portfolio-img'}" loading="lazy">`;
+            const optSingleUrl = getOptimizedMediaUrl(images[0]);
+            return `<img src="${optSingleUrl}" alt="${title}" class="${isHero ? 'featured-hero-img' : 'portfolio-img'}" loading="lazy" decoding="async">`;
         }
 
         const slidesHtml = images.map((imgSrc, idx) => {
@@ -1192,9 +1256,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (typeof customBg === 'string' && customBg) {
                 bgVal = customBg;
             }
+            const optSlideUrl = getOptimizedMediaUrl(imgSrc);
             return `
                 <div class="slider-slide" style="background: ${bgVal};">
-                    <img src="${imgSrc}" alt="${title} - Slide ${idx + 1}" loading="lazy" style="background: ${bgVal};">
+                    <img src="${optSlideUrl}" alt="${title} - Slide ${idx + 1}" loading="lazy" decoding="async" style="background: ${bgVal};">
                 </div>
             `;
         }).join('');
