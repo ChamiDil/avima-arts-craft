@@ -2032,6 +2032,11 @@ p {
     }
 }
 
+/* Smooth Section Anchor Scroll Margin Offset */
+#about, #mystory, #qualifications, #tools, #gallery, #contact {
+    scroll-margin-top: 85px;
+}
+
 /* ==========================================================================
    Category Video Showcase Styles (Small Border & High Contrast)
    ========================================================================== */

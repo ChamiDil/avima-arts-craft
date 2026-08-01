@@ -1603,11 +1603,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (menuToggle) {
-                menuToggle.classList.remove('active');
-                navLinksContainer.classList.remove('active');
+    // --- Smooth Scroll Navigation for Section Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const targetId = anchor.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                e.preventDefault();
+
+                if (menuToggle) {
+                    menuToggle.classList.remove('active');
+                    navLinksContainer.classList.remove('active');
+                }
+
+                const headerOffset = 75;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
