@@ -1356,7 +1356,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (featuredItem.video) {
                 featuredMediaHtml = `
                     <div class="featured-hero-media" style="border-radius: 12px; overflow: hidden; background: #000;">
-                        <video src="${featuredItem.video}" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline controls preload="metadata"></video>
+                        <video src="${featuredItem.video}" style="width: 100%; height: 100%; object-fit: contain; padding: 8px; box-sizing: border-box; background: #0b0e14;" autoplay loop muted playsinline controls preload="metadata"></video>
                     </div>
                 `;
             } else {
@@ -1405,7 +1405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (item.video) {
                                 cardMediaHtml = `
                                     <div class="portfolio-img-container" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
-                                        <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline preload="metadata"></video>
+                                        <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: contain; padding: 6px; box-sizing: border-box; background: #0f172a;" autoplay loop muted playsinline preload="metadata"></video>
                                         <div class="portfolio-overlay">
                                             <span class="view-details-txt">${watchTxt}</span>
                                         </div>
@@ -1463,7 +1463,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (item.video) {
                             cardMediaHtml = `
                                 <div class="portfolio-img-container" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
-                                    <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline preload="metadata"></video>
+                                    <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: contain; padding: 6px; box-sizing: border-box; background: #0f172a;" autoplay loop muted playsinline preload="metadata"></video>
                                     <div class="portfolio-overlay">
                                         <span class="view-details-txt">${watchTxt}</span>
                                     </div>
