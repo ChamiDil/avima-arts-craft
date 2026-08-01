@@ -933,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             contact_tag: "Get in Touch",
             contact_h2: "Interview Evaluation Board",
-            contact_desc: "Prepared with absolute dedication for the exam competition panels. If you have questions regarding the material, curing timelines, or double-firing variables of any piece, please leave an inquiry.",
+            contact_desc: "If you have questions regarding the material, curing timelines, or double-firing variables of any piece, please leave an inquiry below.",
             contact_label_name: "Candidate Name",
             contact_label_email: "General Contact",
             form_label_name: "Your Name",
@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
             form_success: "Thank you! Your message has been sent successfully. Avima Arts & Craft will get back to you shortly.",
 
             footer_tagline: "Structural line geometry, traditional temple motifs, and hand-painted wood designs.",
-            footer_copy: "© 2026 Avima Arts & Craft. Built for Exam Competition Selection Board. All rights reserved."
+            footer_copy: "© 2026 Avima Arts & Craft. All rights reserved."
         },
         de: {
             nav_bio: "Biografie",
@@ -1069,30 +1069,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
             contact_tag: "Kontakt Aufnehmen",
             contact_h2: "Bewertungskommission & Anfragen",
-            contact_desc: "Mit absoluter Hingabe für die Prüfungskommission vorbereitet. Bei Fragen zu Materialien, Aushärtungszeiten oder Techniken können Sie gerne eine Anfrage hinterlassen.",
+            contact_desc: "Bei Fragen zu Materialien, Aushärtungszeiten oder Techniken können Sie gerne eine Anfrage hinterlassen.",
             contact_label_name: "Kandidatenname",
             contact_label_email: "Allgemeiner Kontakt",
             form_label_name: "Ihr Name",
-            form_placeholder_name: "Mitglied der Bewertungskommission",
-            form_label_email: "Ihre E-Mail-Adresse",
-            form_placeholder_email: "pruefer@examboard.de",
-            form_label_interest: "Interessiertes Kunstwerk / Kategorie",
+            form_placeholder_name: "Mitglied der Prüfungskommission",
+            form_label_email: "Ihre E-Mail",
+            form_placeholder_email: "gutachter@pruefungskommission.de",
+            form_label_interest: "Interessiertes Kunstwerk",
             form_select_default: "Kategorie auswählen",
-            form_opt_plate: "Mahagoni- & Keramikteller",
+            form_opt_plate: "Mahagoni- & Keramik-Teller",
             form_opt_3d_cement: "3D Zementdekoration",
-            form_opt_batik: "Batik-Handwerk",
-            form_opt_canvas: "Leinwandgemälde",
-            form_opt_jewellary: "Schmuck- & Anhängerkunst",
-            form_opt_line_art: "Mandala & Linienkunst",
+            form_opt_batik: "Batik-Kunsthandwerk",
+            form_opt_canvas: "Leinwandmalerei",
+            form_opt_jewellary: "Anhänger- & Schmuckkunst",
+            form_opt_line_art: "Mandala- & Linienkunst",
             form_opt_handmade: "Kokosnussschalen-Handwerk",
-            form_opt_project: "Wandgemälde & Großprojekte",
-            form_label_msg: "Nachricht / Anmerkungen",
-            form_placeholder_msg: "Schreiben Sie Ihre Fragen oder Bewertungshinweise hier...",
+            form_opt_project: "Wandbilder & Großprojekte",
+            form_label_msg: "Bewertungsnotizen / Anfragen",
+            form_placeholder_msg: "Geben Sie Ihre Fragen oder Notizen hier ein...",
             form_submit: "Nachricht Senden",
             form_success: "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Avima Arts & Craft wird sich in Kürze bei Ihnen melden.",
 
-            footer_tagline: "Strukturelle Liniergeometrie, traditionelle Tempelmotive und handgemalte Holzdesigns.",
-            footer_copy: "© 2026 Avima Arts & Craft. Erstellt für die Bewertungskommission. Alle Rechte vorbehalten."
+            footer_tagline: "Strukturelle Liniengeometrie, traditionelle Tempelmotive und handbemalte Holzdesigns.",
+            footer_copy: "© 2026 Avima Arts & Craft. Alle Rechte vorbehalten."
         }
     };
 
@@ -1411,9 +1411,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             let cardMediaHtml = '';
 
                             if (item.video) {
+                                const thumbImg = item.image || 'assets/mahogany/mahogany_plate_mandala.jpg';
                                 cardMediaHtml = `
-                                    <div class="portfolio-img-container" style="background: #0f172a;">
-                                        <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline preload="metadata"></video>
+                                    <div class="portfolio-img-container video-thumbnail-card" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
+                                        <img src="${thumbImg}" alt="${itemTitle} Thumbnail" class="portfolio-img video-thumb-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                                        <div class="video-play-overlay" style="position: absolute; inset: 0; background: rgba(11, 15, 25, 0.45); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                                            <div class="play-btn-circle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.25); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                                <span class="play-arrow" style="width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 17px solid #ffffff; margin-left: 4px;"></span>
+                                            </div>
+                                        </div>
                                         <div class="portfolio-overlay">
                                             <span class="view-details-txt">${watchTxt}</span>
                                         </div>
@@ -1469,9 +1475,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         let cardMediaHtml = '';
 
                         if (item.video) {
+                            const thumbImg = item.image || 'assets/mahogany/mahogany_plate_mandala.jpg';
                             cardMediaHtml = `
-                                <div class="portfolio-img-container" style="background: #0f172a;">
-                                    <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline preload="metadata"></video>
+                                <div class="portfolio-img-container video-thumbnail-card" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
+                                    <img src="${thumbImg}" alt="${itemTitle} Thumbnail" class="portfolio-img video-thumb-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                                    <div class="video-play-overlay" style="position: absolute; inset: 0; background: rgba(11, 15, 25, 0.45); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                                        <div class="play-btn-circle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.25); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                            <span class="play-arrow" style="width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 17px solid #ffffff; margin-left: 4px;"></span>
+                                        </div>
+                                    </div>
                                     <div class="portfolio-overlay">
                                         <span class="view-details-txt">${watchTxt}</span>
                                     </div>
@@ -1532,55 +1544,70 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ScrollSpy & Sticky Tab Controller ---
     function setupScrollSpy() {
         const sections = document.querySelectorAll('.category-block-section');
-        if (!sections.length || !filterButtons.length) return;
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        if (!sections.length || !filterBtns.length) return;
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '-100px 0px -50% 0px',
-            threshold: 0.1
-        };
+        let isManualClick = false;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
-                    const filterKey = sectionId.replace('category-', '');
+        const updateActiveCategoryOnScroll = () => {
+            if (isManualClick) return;
+            const scrollPos = window.scrollY + 160;
 
-                    filterButtons.forEach(btn => {
-                        const isActive = btn.getAttribute('data-filter') === filterKey;
-                        btn.classList.toggle('active', isActive);
-                        if (isActive) {
-                            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                        }
-                    });
+            let currentActiveId = '';
+            sections.forEach(sec => {
+                const top = sec.offsetTop;
+                const height = sec.offsetHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    currentActiveId = sec.id.replace('category-', '');
                 }
             });
-        }, observerOptions);
 
-        sections.forEach(sec => observer.observe(sec));
-    }
+            if (!currentActiveId && sections.length > 0) {
+                if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 200) {
+                    currentActiveId = sections[sections.length - 1].id.replace('category-', '');
+                }
+            }
 
-    // --- Filter Buttons Smooth Scroll Listener ---
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const filterValue = button.getAttribute('data-filter');
-            const targetSection = document.getElementById(`category-${filterValue}`);
-
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
-            if (targetSection) {
-                const headerOffset = 110;
-                const elementPosition = targetSection.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
+            if (currentActiveId) {
+                filterBtns.forEach(btn => {
+                    const isActive = btn.getAttribute('data-filter') === currentActiveId;
+                    btn.classList.toggle('active', isActive);
+                    if (isActive && btn.offsetParent !== null) {
+                        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
                 });
             }
+        };
+
+        window.addEventListener('scroll', updateActiveCategoryOnScroll, { passive: true });
+        updateActiveCategoryOnScroll();
+
+        filterBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const filterValue = button.getAttribute('data-filter');
+                const targetSection = document.getElementById(`category-${filterValue}`);
+
+                isManualClick = true;
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+                if (targetSection) {
+                    const headerOffset = 120;
+                    const elementPosition = targetSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+
+                setTimeout(() => {
+                    isManualClick = false;
+                }, 800);
+            });
         });
-    });
+    }
 
     // --- Mobile Menu Toggle ---
     if (menuToggle) {

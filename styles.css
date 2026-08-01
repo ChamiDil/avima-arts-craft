@@ -2197,6 +2197,51 @@ p {
     overflow: hidden;
 }
 
+.qualifications-header {
+    position: relative;
+    z-index: 25;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.qualifications-header .section-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fbbf24;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.qualifications-header .portfolio-h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+    margin-bottom: 0.75rem;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 25;
+}
+
+.video-thumbnail-card:hover .video-thumb-img {
+    transform: scale(1.06);
+}
+
+.video-thumbnail-card:hover .play-btn-circle {
+    transform: scale(1.12) !important;
+    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.75), 0 0 0 6px rgba(255, 255, 255, 0.4) !important;
+}
+
+.video-thumbnail-card:hover .video-play-overlay {
+    background: rgba(11, 15, 25, 0.25) !important;
+}
+
 .qualifications-bg-glow {
     position: absolute;
     top: 50%;
