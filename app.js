@@ -363,13 +363,11 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Traditional Sri Lankan Temple Procession (Esala Perahera) Progress Frame',
             category: 'Canvas Painting',
             filter: 'canvas',
-            slideBgs: [
-                '#2b0b12',
-                '#1c070c'
-            ],
             images: [
+                'assets/canvas/canvas_perahera_new_step_red_base.jpg',
                 'assets/canvas/canvas_perahera_step2_easel.jpg',
-                'assets/canvas/canvas_perahera_step3_finished_handheld.jpg'
+                'assets/canvas/canvas_perahera_step3_finished_handheld.jpg',
+                'assets/canvas/canvas_perahera_finished.jpg'
             ],
             image: 'assets/canvas/canvas_perahera_step3_finished_handheld.jpg'
         },
