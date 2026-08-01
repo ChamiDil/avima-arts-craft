@@ -1411,15 +1411,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             let cardMediaHtml = '';
 
                             if (item.video) {
-                                const thumbImg = item.image || 'assets/mahogany/mahogany_plate_mandala.jpg';
                                 cardMediaHtml = `
-                                    <div class="portfolio-img-container video-thumbnail-card" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
-                                        <img src="${thumbImg}" alt="${itemTitle} Thumbnail" class="portfolio-img video-thumb-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
-                                        <div class="video-play-overlay" style="position: absolute; inset: 0; background: rgba(11, 15, 25, 0.45); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
-                                            <div class="play-btn-circle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.25); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                                <span class="play-arrow" style="width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 17px solid #ffffff; margin-left: 4px;"></span>
-                                            </div>
-                                        </div>
+                                    <div class="portfolio-img-container" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
+                                        <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline preload="metadata"></video>
                                         <div class="portfolio-overlay">
                                             <span class="view-details-txt">${watchTxt}</span>
                                         </div>
@@ -1475,15 +1469,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         let cardMediaHtml = '';
 
                         if (item.video) {
-                            const thumbImg = item.image || 'assets/mahogany/mahogany_plate_mandala.jpg';
                             cardMediaHtml = `
-                                <div class="portfolio-img-container video-thumbnail-card" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
-                                    <img src="${thumbImg}" alt="${itemTitle} Thumbnail" class="portfolio-img video-thumb-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
-                                    <div class="video-play-overlay" style="position: absolute; inset: 0; background: rgba(11, 15, 25, 0.45); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
-                                        <div class="play-btn-circle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.25); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                            <span class="play-arrow" style="width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 17px solid #ffffff; margin-left: 4px;"></span>
-                                        </div>
-                                    </div>
+                                <div class="portfolio-img-container" style="background: #0f172a; position: relative; overflow: hidden; border-radius: 12px; cursor: pointer;">
+                                    <video src="${item.video}" class="portfolio-img" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted playsinline preload="metadata"></video>
                                     <div class="portfolio-overlay">
                                         <span class="view-details-txt">${watchTxt}</span>
                                     </div>
