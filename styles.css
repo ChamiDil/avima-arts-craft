@@ -1637,19 +1637,22 @@ p {
 }
 
 /* --- Artwork Details Lightbox Modal --- */
+/* ==========================================================================
+   Full Uncropped Responsive Lightbox Modal
+   ========================================================================== */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 1rem;
 }
 
 .modal.active {
@@ -1660,56 +1663,58 @@ p {
 .modal-backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(10, 15, 26, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 .modal-container {
-    background-color: #ffffff;
-    border: 1px solid #cbd5e1;
-    width: 90%;
-    max-width: 800px;
-    max-height: 85vh;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 100%;
+    max-width: 1100px;
+    max-height: 92vh;
     z-index: 2;
     position: relative;
-    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
-    transform: translateY(20px) scale(0.97);
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    transform: scale(0.96);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     display: flex;
     flex-direction: column;
-    border-radius: var(--radius-card);
+    border-radius: 1.25rem;
     overflow: hidden;
 }
 
 .modal.active .modal-container {
-    transform: translateY(0) scale(1);
+    transform: scale(1);
 }
 
 .modal-close {
     position: absolute;
     top: 1rem;
     right: 1.25rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     cursor: pointer;
     color: #ffffff;
-    z-index: 10;
-    transition: var(--transition-fast);
+    z-index: 20;
+    transition: all 0.25s ease;
     line-height: 1;
-    background: rgba(15, 23, 42, 0.7);
-    width: 38px;
-    height: 38px;
+    background: rgba(15, 23, 42, 0.85);
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .modal-close:hover {
     color: #ffffff;
-    background: #0f172a;
+    background: var(--accent);
     border-color: var(--accent);
+    transform: scale(1.08);
 }
 
 .modal-content {
@@ -1717,57 +1722,117 @@ p {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    max-height: 85vh;
+    max-height: 92vh;
+    overflow-y: auto;
 }
 
 .modal-image-pane {
-    flex: 1;
-    background-color: #0f172a;
-    overflow: hidden;
+    position: relative;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 320px;
+    max-height: 68vh;
+    background-color: #050914;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
-    max-height: calc(85vh - 70px);
+    padding: 1rem;
+    overflow: hidden;
 }
 
-.modal-image-pane img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: var(--radius-card-sm);
+.modal-image-pane img,
+.modal-image-pane video,
+#modal-img {
+    max-width: 95vw;
+    max-height: 65vh;
+    width: auto;
+    height: auto;
+    object-fit: contain !important;
+    border-radius: 0.75rem;
+    display: block;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Lightbox Navigation Arrows & Counter */
+.modal-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.modal-nav-arrow:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.modal-nav-arrow.prev { left: 1rem; }
+.modal-nav-arrow.next { right: 1rem; }
+
+.modal-counter {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85);
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    z-index: 10;
+    backdrop-filter: blur(8px);
 }
 
 .modal-caption-pane {
-    padding: 1.25rem 1.5rem;
-    background-color: #ffffff;
-    border-top: 1px solid #e2e8f0;
+    padding: 1.25rem 1.75rem;
+    background-color: #0b1120;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
+    flex-shrink: 0;
 }
 
 .modal-subtag {
     font-size: 0.72rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: var(--accent);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
     display: inline-block;
 }
 
 .modal-title {
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    color: var(--white);
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    margin-bottom: 0.4rem;
 }
 
 .modal-desc {
     font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-top: 0.5rem;
-    max-width: 650px;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 750px;
     margin-inline: auto;
+    white-space: pre-line;
 }
 
 /* --- Comprehensive Mobile & Responsive Design System --- */
@@ -1913,17 +1978,24 @@ p {
     }
 
     .modal-container {
-        width: 95%;
-        max-height: 88vh;
+        width: 98%;
+        max-height: 94vh;
     }
 
     .modal-content {
-        max-height: 88vh;
+        max-height: 94vh;
     }
 
     .modal-image-pane {
-        padding: 0.6rem;
-        max-height: 52vh;
+        padding: 0.5rem;
+        max-height: 56vh;
+        min-height: 250px;
+    }
+
+    .modal-image-pane img,
+    .modal-image-pane video,
+    #modal-img {
+        max-height: 54vh;
     }
 
     .modal-caption-pane {

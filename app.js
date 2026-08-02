@@ -1781,27 +1781,95 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Lightbox Modal Logic ---
+    // --- Lightbox Modal Logic with Multi-Image Slider & Touch Swipe ---
+    let currentModalItem = null;
+    let currentModalImageIndex = 0;
+
+    const updateModalImage = () => {
+        if (!currentModalItem) return;
+
+        const modalImagePane = artworkModal.querySelector('.modal-image-pane');
+        if (!modalImagePane) return;
+
+        const imagesList = (currentModalItem.images && currentModalItem.images.length > 0)
+            ? currentModalItem.images
+            : [currentModalItem.image];
+
+        const totalImages = imagesList.length;
+        currentModalImageIndex = (currentModalImageIndex + totalImages) % totalImages;
+        const rawSrc = imagesList[currentModalImageIndex];
+        const currentSrc = getOptimizedMediaUrl ? getOptimizedMediaUrl(rawSrc) : rawSrc;
+        const itemTitle = getItemTitle(currentModalItem);
+
+        if (currentModalItem.video) {
+            modalImagePane.innerHTML = `
+                <video src="${currentModalItem.video}" controls autoplay muted playsinline style="max-width: 95vw; max-height: 65vh; object-fit: contain; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); background: #000; display: block;"></video>
+            `;
+        } else {
+            let navHtml = '';
+            if (totalImages > 1) {
+                navHtml = `
+                    <button class="modal-nav-arrow prev" id="modal-nav-prev" aria-label="Previous image">❮</button>
+                    <button class="modal-nav-arrow next" id="modal-nav-next" aria-label="Next image">❯</button>
+                    <span class="modal-counter">${currentModalImageIndex + 1} / ${totalImages}</span>
+                `;
+            }
+            modalImagePane.innerHTML = `
+                <img id="modal-img" src="${currentSrc}" alt="${itemTitle} - view ${currentModalImageIndex + 1}" class="modal-image loaded" style="object-fit: contain !important;">
+                ${navHtml}
+            `;
+
+            // Attach Arrow Click Listeners
+            const prevBtn = modalImagePane.querySelector('#modal-nav-prev');
+            const nextBtn = modalImagePane.querySelector('#modal-nav-next');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentModalImageIndex--;
+                    updateModalImage();
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentModalImageIndex++;
+                    updateModalImage();
+                });
+            }
+
+            // Touch Swipe Support for Lightbox
+            let touchStartX = 0;
+            modalImagePane.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+
+            modalImagePane.addEventListener('touchend', (e) => {
+                if (totalImages <= 1) return;
+                const touchEndX = e.changedTouches[0].clientX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) {
+                        currentModalImageIndex++;
+                    } else {
+                        currentModalImageIndex--;
+                    }
+                    updateModalImage();
+                }
+            }, { passive: true });
+        }
+    };
+
     const openModal = (itemId) => {
         const item = artworkItems.find(i => i.id === itemId);
         if (!item) return;
 
-        const modalImagePane = artworkModal.querySelector('.modal-image-pane');
+        currentModalItem = item;
+        currentModalImageIndex = 0;
+
         const itemTitle = getItemTitle(item);
         const itemDesc = getItemDesc(item);
 
-        if (modalImagePane) {
-            if (item.video) {
-                modalImagePane.innerHTML = `
-                    <video src="${item.video}" controls autoplay muted playsinline style="width: 100%; max-height: 70vh; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); background: #000; display: block;"></video>
-                `;
-            } else {
-                const displayImg = (item.images && item.images.length > 0) ? item.images[0] : item.image;
-                modalImagePane.innerHTML = `
-                    <img id="modal-img" src="${displayImg}" alt="${itemTitle} - view" class="modal-image">
-                `;
-            }
-        }
+        updateModalImage();
 
         modalTitle.textContent = itemTitle;
 
@@ -1822,6 +1890,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = () => {
         artworkModal.classList.remove('active');
         document.body.style.overflow = '';
+        currentModalItem = null;
+        currentModalImageIndex = 0;
         const modalImagePane = artworkModal.querySelector('.modal-image-pane');
         if (modalImagePane) {
             modalImagePane.innerHTML = '<img id="modal-img" src="" alt="artwork detail modal" class="modal-image">';
@@ -1845,8 +1915,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && artworkModal.classList.contains('active')) {
+        if (!artworkModal.classList.contains('active')) return;
+        if (e.key === 'Escape') {
             closeModal();
+        } else if (e.key === 'ArrowLeft' && currentModalItem) {
+            currentModalImageIndex--;
+            updateModalImage();
+        } else if (e.key === 'ArrowRight' && currentModalItem) {
+            currentModalImageIndex++;
+            updateModalImage();
         }
     });
 
